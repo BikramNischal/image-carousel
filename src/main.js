@@ -4,8 +4,9 @@ const imageWrapper = document.querySelector("#carousel-image-wrapper");
 const indicatorBtns = document.getElementsByClassName("indicator__btn");
 const prevBtn = document.querySelector(".carousel__btn--prev");
 const nextBtn = document.querySelector(".carousel__btn--next");
-// calculate current, next and prev index
+// current image index
 let currentIndex = 0;
+// calculate current, next and prev index
 function leftIndex(currentIndex) {
     return currentIndex - 1 < 0 ? allImages.length - 1 : currentIndex - 1;
 }
@@ -16,6 +17,16 @@ function rightIndex(currentIndex) {
 let currentImage = allImages[currentIndex];
 let leftImage = allImages[leftIndex(currentIndex)];
 let rightImage = allImages[rightIndex(currentIndex)];
+for (let i = 0; i < indicatorBtns.length; ++i) {
+    const btn = indicatorBtns[i];
+    btn.onclick = () => {
+        console.log("clicked");
+        currentIndex = i;
+        currentImage = allImages[currentIndex];
+        leftImage = allImages[leftIndex(currentIndex)];
+        rightImage = allImages[rightIndex(currentIndex)];
+    };
+}
 //images position
 const currentImageLeft = "0px";
 const leftImageLeft = `-${imageWrapper.clientWidth}px`;
@@ -31,6 +42,7 @@ function changeNextImage() {
     rightImage = currentImage;
     currentImage = leftImage;
     leftImage = allImages[leftIndex(currentIndex)];
+    // reassign image positions
     currentImage.style.left = currentImageLeft;
     leftImage.style.left = leftImageLeft;
     rightImage.style.left = rightImageLeft;
@@ -43,15 +55,20 @@ function changePrevImage() {
     leftImage = currentImage;
     currentImage = rightImage;
     rightImage = allImages[rightIndex(currentIndex)];
+    //reassign image positions
     currentImage.style.left = currentImageLeft;
     leftImage.style.left = leftImageLeft;
     rightImage.style.left = rightImageLeft;
 }
 function displayNext() {
+    //get left position of current image
     const currentImgLeftPos = currentImage.style.left;
+    //get left position of left image
     const leftImgLeftPos = leftImage.style.left;
+    // conver position string to number
     let currentImgLeftNum = Number(currentImgLeftPos.substring(0, currentImgLeftPos.length - 2));
     let leftImgLeftNum = Number(leftImgLeftPos.substring(0, leftImgLeftPos.length - 2));
+    //move image by 5px to right
     let change = setInterval(function () {
         currentImgLeftNum += 5;
         leftImgLeftNum += 5;
@@ -64,10 +81,14 @@ function displayNext() {
     }, 1);
 }
 function displayPrev() {
+    //get left position of current image
     const currentImgLeftPos = currentImage.style.left;
+    //get left postion of right image
     const rightImgLeftPos = rightImage.style.left;
+    //convert position string to number
     let currentImgLeftNum = Number(currentImgLeftPos.substring(0, currentImgLeftPos.length - 2));
     let rightImgLeftNum = Number(rightImgLeftPos.substring(0, rightImgLeftPos.length - 2));
+    //move image to left by 5px
     let change = setInterval(function () {
         currentImgLeftNum -= 5;
         rightImgLeftNum -= 5;
