@@ -3,9 +3,13 @@
 
 Image carousel implementation using html css and ts 
 
-
 # Note: github page is not executing javascript 
 ## please run this program locally 
+
+### for woking demo
+[Visit https://image-carousel-lemon-one.vercel.app/](https://image-carousel-lemon-one.vercel.app/)
+
+# OR
 
 ## Run locally
 
