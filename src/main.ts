@@ -136,5 +136,8 @@ function displayPrev() {
 	}, 1);
 }
 
+
+setInterval(displayNext, 10000);
+
 nextBtn.onclick = displayNext;
 prevBtn.onclick = displayPrev;
