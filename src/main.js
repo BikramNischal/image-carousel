@@ -19,13 +19,15 @@ let leftImage = allImages[leftIndex(currentIndex)];
 let rightImage = allImages[rightIndex(currentIndex)];
 for (let i = 0; i < indicatorBtns.length; ++i) {
     const btn = indicatorBtns[i];
-    btn.onclick = () => {
-        console.log("clicked");
-        currentIndex = i;
-        currentImage = allImages[currentIndex];
-        leftImage = allImages[leftIndex(currentIndex)];
-        rightImage = allImages[rightIndex(currentIndex)];
-    };
+    btn.onclick = ((index) => {
+        return () => {
+            console.log("clicked");
+            currentIndex = index;
+            currentImage = allImages[currentIndex];
+            leftImage = allImages[leftIndex(currentIndex)];
+            rightImage = allImages[rightIndex(currentIndex)];
+        };
+    })(i);
 }
 //images position
 const currentImageLeft = "0px";
@@ -60,7 +62,7 @@ function changePrevImage() {
     leftImage.style.left = leftImageLeft;
     rightImage.style.left = rightImageLeft;
 }
-function displayNext() {
+function displayNext(autoScroll) {
     //get left position of current image
     const currentImgLeftPos = currentImage.style.left;
     //get left position of left image
@@ -68,6 +70,7 @@ function displayNext() {
     // conver position string to number
     let currentImgLeftNum = Number(currentImgLeftPos.substring(0, currentImgLeftPos.length - 2));
     let leftImgLeftNum = Number(leftImgLeftPos.substring(0, leftImgLeftPos.length - 2));
+    clearInterval(autoScroll);
     //move image by 5px to right
     let change = setInterval(function () {
         currentImgLeftNum += 5;
@@ -80,7 +83,7 @@ function displayNext() {
         }
     }, 1);
 }
-function displayPrev() {
+function displayPrev(autoScroll) {
     //get left position of current image
     const currentImgLeftPos = currentImage.style.left;
     //get left postion of right image
@@ -88,6 +91,7 @@ function displayPrev() {
     //convert position string to number
     let currentImgLeftNum = Number(currentImgLeftPos.substring(0, currentImgLeftPos.length - 2));
     let rightImgLeftNum = Number(rightImgLeftPos.substring(0, rightImgLeftPos.length - 2));
+    clearInterval(autoScroll);
     //move image to left by 5px
     let change = setInterval(function () {
         currentImgLeftNum -= 5;
@@ -100,6 +104,12 @@ function displayPrev() {
         }
     }, 1);
 }
-setInterval(displayNext, 10000);
-nextBtn.onclick = displayNext;
-prevBtn.onclick = displayPrev;
+let autoScroll = setInterval(displayNext, 5000);
+nextBtn.onclick = () => {
+    displayNext(autoScroll);
+    autoScroll = setInterval(displayNext, 5000);
+};
+prevBtn.onclick = () => {
+    displayPrev(autoScroll);
+    autoScroll = setInterval(displayNext, 5000);
+};

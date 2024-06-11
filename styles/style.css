@@ -14,7 +14,7 @@ body {
 #carousel {
 	margin-top: 100px;
 	width: 60%;
-	max-width: 700px;
+	/* max-width: 700px; */
 	position: relative;
 	overflow: hidden;
 }
@@ -108,8 +108,19 @@ body {
 	opacity: 0.7;
 }
 
+@media only screen and (max-midth: 1000px){
+	#carousel{
+		width: 75%;
+	}
+}
+
 
 @media only screen and (max-width: 700px) {
+
+	#carousel{
+		width: 90%;
+	}
+
 	.btn{
 		font-size: 32px;
 	}	

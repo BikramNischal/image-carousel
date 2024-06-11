@@ -29,14 +29,18 @@ let rightImage = allImages[rightIndex(currentIndex)] as HTMLImageElement;
 
 for (let i = 0; i < indicatorBtns.length; ++i) {
 	const btn = indicatorBtns[i] as HTMLButtonElement;
-	btn.onclick = () => {
-        console.log("clicked");
-		currentIndex = i;
+	btn.onclick = ((index) => {
+		return () => {
+			console.log("clicked");
+			currentIndex = index;
 
-		currentImage = allImages[currentIndex] as HTMLImageElement;
-		leftImage = allImages[leftIndex(currentIndex)] as HTMLImageElement;
-		rightImage = allImages[rightIndex(currentIndex)] as HTMLImageElement;
-	};
+			currentImage = allImages[currentIndex] as HTMLImageElement;
+			leftImage = allImages[leftIndex(currentIndex)] as HTMLImageElement;
+			rightImage = allImages[
+				rightIndex(currentIndex)
+			] as HTMLImageElement;
+		};
+	})(i);
 }
 
 //images position
@@ -80,7 +84,7 @@ function changePrevImage() {
 	rightImage.style.left = rightImageLeft;
 }
 
-function displayNext() {
+function displayNext(autoScroll: any) {
 	//get left position of current image
 	const currentImgLeftPos = currentImage.style.left;
 	//get left position of left image
@@ -95,6 +99,7 @@ function displayNext() {
 		leftImgLeftPos.substring(0, leftImgLeftPos.length - 2)
 	);
 
+	clearInterval(autoScroll);
 	//move image by 5px to right
 	let change = setInterval(function () {
 		currentImgLeftNum += 5;
@@ -106,9 +111,10 @@ function displayNext() {
 			clearInterval(change);
 		}
 	}, 1);
+
 }
 
-function displayPrev() {
+function displayPrev(autoScroll:any) {
 	//get left position of current image
 	const currentImgLeftPos = currentImage.style.left;
 	//get left postion of right image
@@ -123,6 +129,7 @@ function displayPrev() {
 		rightImgLeftPos.substring(0, rightImgLeftPos.length - 2)
 	);
 
+	clearInterval(autoScroll);
 	//move image to left by 5px
 	let change = setInterval(function () {
 		currentImgLeftNum -= 5;
@@ -136,8 +143,14 @@ function displayPrev() {
 	}, 1);
 }
 
+let autoScroll = setInterval(displayNext, 5000);
 
-setInterval(displayNext, 10000);
+nextBtn.onclick = () => {
+	displayNext(autoScroll);
+	autoScroll =  setInterval(displayNext, 5000);
+};
 
-nextBtn.onclick = displayNext;
-prevBtn.onclick = displayPrev;
+prevBtn.onclick = () => {
+	displayPrev(autoScroll);
+	autoScroll =  setInterval(displayNext, 5000);
+};
