@@ -75,39 +75,6 @@ body {
 	z-index: 9;
 }
 
-
-.indicators {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	background-color: transparent;
-	width: 200px;
-	height: 30px;
-	position: absolute;
-	bottom: 30px;
-	left: calc(50% - 100px);
-	z-index: 1000;
-}
-
-.indicator__btn {
-	width: 20px;
-	height: 20px;
-	border: none;
-	border-radius: 50%;
-	background: none;
-	background-color: #ffffff;
-	opacity: 0.3;
-}
-
-.indicator__btn:hover {
-	opacity: 0.5;
-}
-
-.indicator__btn--active {
-	opacity: 0.7;
-}
-
 @media only screen and (max-midth: 1000px){
 	#carousel{
 		width: 75%;

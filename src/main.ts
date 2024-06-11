@@ -2,7 +2,7 @@ const allImages = document.getElementsByClassName("carousel__img");
 const imageWrapper = document.querySelector(
 	"#carousel-image-wrapper"
 ) as HTMLElement;
-const indicatorBtns = document.getElementsByClassName("indicator__btn");
+const indicatorBtns = document.querySelectorAll("indicator__btn");
 const prevBtn = document.querySelector(
 	".carousel__btn--prev"
 ) as HTMLButtonElement;
@@ -26,22 +26,6 @@ function rightIndex(currentIndex: number): number {
 let currentImage = allImages[currentIndex] as HTMLImageElement;
 let leftImage = allImages[leftIndex(currentIndex)] as HTMLImageElement;
 let rightImage = allImages[rightIndex(currentIndex)] as HTMLImageElement;
-
-for (let i = 0; i < indicatorBtns.length; ++i) {
-	const btn = indicatorBtns[i] as HTMLButtonElement;
-	btn.onclick = ((index) => {
-		return () => {
-			console.log("clicked");
-			currentIndex = index;
-
-			currentImage = allImages[currentIndex] as HTMLImageElement;
-			leftImage = allImages[leftIndex(currentIndex)] as HTMLImageElement;
-			rightImage = allImages[
-				rightIndex(currentIndex)
-			] as HTMLImageElement;
-		};
-	})(i);
-}
 
 //images position
 const currentImageLeft = "0px";
@@ -111,10 +95,9 @@ function displayNext(autoScroll: any) {
 			clearInterval(change);
 		}
 	}, 1);
-
 }
 
-function displayPrev(autoScroll:any) {
+function displayPrev(autoScroll: any) {
 	//get left position of current image
 	const currentImgLeftPos = currentImage.style.left;
 	//get left postion of right image
@@ -147,10 +130,10 @@ let autoScroll = setInterval(displayNext, 5000);
 
 nextBtn.onclick = () => {
 	displayNext(autoScroll);
-	autoScroll =  setInterval(displayNext, 5000);
+	autoScroll = setInterval(displayNext, 5000);
 };
 
 prevBtn.onclick = () => {
 	displayPrev(autoScroll);
-	autoScroll =  setInterval(displayNext, 5000);
+	autoScroll = setInterval(displayNext, 5000);
 };

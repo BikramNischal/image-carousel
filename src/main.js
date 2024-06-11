@@ -1,7 +1,7 @@
 "use strict";
 const allImages = document.getElementsByClassName("carousel__img");
 const imageWrapper = document.querySelector("#carousel-image-wrapper");
-const indicatorBtns = document.getElementsByClassName("indicator__btn");
+const indicatorBtns = document.querySelectorAll("indicator__btn");
 const prevBtn = document.querySelector(".carousel__btn--prev");
 const nextBtn = document.querySelector(".carousel__btn--next");
 // current image index
@@ -17,18 +17,6 @@ function rightIndex(currentIndex) {
 let currentImage = allImages[currentIndex];
 let leftImage = allImages[leftIndex(currentIndex)];
 let rightImage = allImages[rightIndex(currentIndex)];
-for (let i = 0; i < indicatorBtns.length; ++i) {
-    const btn = indicatorBtns[i];
-    btn.onclick = ((index) => {
-        return () => {
-            console.log("clicked");
-            currentIndex = index;
-            currentImage = allImages[currentIndex];
-            leftImage = allImages[leftIndex(currentIndex)];
-            rightImage = allImages[rightIndex(currentIndex)];
-        };
-    })(i);
-}
 //images position
 const currentImageLeft = "0px";
 const leftImageLeft = `-${imageWrapper.clientWidth}px`;
