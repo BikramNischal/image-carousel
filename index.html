@@ -3,29 +3,46 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/style.css">
+		<link rel="stylesheet" href="./styles/style.css" />
 		<title>Image Carousel</title>
 	</head>
 	<body>
+		<div id="carousel">
+			<button class="btn carousel__btn--prev">&#11164;</button>
+			<div id="carousel-image-wrapper">
+				<!-- placeholder image for container height and width -->
+				<img
+					src="./public/image2.jpg"
+					alt="Nature Image"
+					class="placeholder-img"
+				/>
 
-    <div id="carousel">
-        <button class="btn carousel__btn--prev">
-          &#11164;
-        </button>
-      <div id="carousel-image-wrapper">
-        <!-- placeholder image for container height and width -->
-        <img src="./public/image2.jpg" alt="Nature Image" class="placeholder-img">
+				<!-- actual image to be displayed  -->
+				<img
+					src="./public/image2.jpg"
+					alt="Nature Image"
+					class="carousel__img carousel__img--display"
+				/>
+				<img
+					src="./public/image3.jpg"
+					alt="Nature Image"
+					class="carousel__img carousel__img--next"
+				/>
+				<img
+					src="./public/image4.jpg"
+					alt="Nature Image"
+					class="carousel__img carousel__img--prev"
+				/>
+			</div>
+			<button class="btn carousel__btn--next">&#11166;</button>
 
-        <!-- actual image to be displayed  -->
-        <img src="./public/image2.jpg" alt="Nature Image" class="carousel__img carousel__img--display">
-        <img src="./public/image3.jpg" alt="Nature Image" class="carousel__img carousel__img--next">
-        <img src="./public/image4.jpg" alt="Nature Image" class="carousel__img carousel__img--prev">
-      </div>
-      <button class="btn carousel__btn--next">
-        &#11166;
-      </button>
-
-    </div>
+			<!-- Indicator buttons -->
+			<div class="indicator">
+				<button class="indicator__btn active"></button>
+				<button class="indicator__btn"></button>
+				<button class="indicator__btn"></button>
+			</div>
+		</div>
 
 		<script type="module" src="/src/main.js"></script>
 	</body>

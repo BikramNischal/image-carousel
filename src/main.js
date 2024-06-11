@@ -1,7 +1,7 @@
 "use strict";
 const allImages = document.getElementsByClassName("carousel__img");
 const imageWrapper = document.querySelector("#carousel-image-wrapper");
-const indicatorBtns = document.querySelectorAll("indicator__btn");
+const indicatorBtns = document.querySelectorAll(".indicator__btn");
 const prevBtn = document.querySelector(".carousel__btn--prev");
 const nextBtn = document.querySelector(".carousel__btn--next");
 // current image index
@@ -24,6 +24,19 @@ const rightImageLeft = `${imageWrapper.clientWidth}px`;
 currentImage.style.left = currentImageLeft;
 leftImage.style.left = leftImageLeft;
 rightImage.style.left = rightImageLeft;
+// update image Indicator
+function updateIndicator(currentIndex) {
+    for (let index = 0; index < indicatorBtns.length; ++index) {
+        if (index === currentIndex) {
+            indicatorBtns[index].classList.add("active");
+            console.log("activate", index, currentIndex);
+        }
+        else {
+            indicatorBtns[index].classList.remove("active");
+            console.log("deactivate", index, currentIndex);
+        }
+    }
+}
 // //change to next element
 function changeNextImage() {
     //calculate current index
@@ -58,6 +71,7 @@ function displayNext(autoScroll) {
     // conver position string to number
     let currentImgLeftNum = Number(currentImgLeftPos.substring(0, currentImgLeftPos.length - 2));
     let leftImgLeftNum = Number(leftImgLeftPos.substring(0, leftImgLeftPos.length - 2));
+    updateIndicator(leftIndex(currentIndex));
     clearInterval(autoScroll);
     //move image by 5px to right
     let change = setInterval(function () {
@@ -79,6 +93,7 @@ function displayPrev(autoScroll) {
     //convert position string to number
     let currentImgLeftNum = Number(currentImgLeftPos.substring(0, currentImgLeftPos.length - 2));
     let rightImgLeftNum = Number(rightImgLeftPos.substring(0, rightImgLeftPos.length - 2));
+    updateIndicator(rightIndex(currentIndex));
     clearInterval(autoScroll);
     //move image to left by 5px
     let change = setInterval(function () {
@@ -101,3 +116,4 @@ prevBtn.onclick = () => {
     displayPrev(autoScroll);
     autoScroll = setInterval(displayNext, 5000);
 };
+updateIndicator(currentIndex);
