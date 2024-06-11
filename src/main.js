@@ -29,12 +29,26 @@ function updateIndicator(currentIndex) {
     for (let index = 0; index < indicatorBtns.length; ++index) {
         if (index === currentIndex) {
             indicatorBtns[index].classList.add("active");
-            console.log("activate", index, currentIndex);
         }
         else {
             indicatorBtns[index].classList.remove("active");
-            console.log("deactivate", index, currentIndex);
         }
+    }
+}
+function updateImage(autoScroll) {
+    for (let index = 0; index < indicatorBtns.length; ++index) {
+        indicatorBtns[index].addEventListener("click", () => {
+            clearInterval(autoScroll);
+            currentIndex = index;
+            currentImage = allImages[currentIndex];
+            leftImage = allImages[leftIndex(currentIndex)];
+            rightImage = allImages[rightIndex(currentIndex)];
+            currentImage.style.left = currentImageLeft;
+            leftImage.style.left = leftImageLeft;
+            rightImage.style.left = rightImageLeft;
+            updateIndicator(currentIndex);
+            autoScroll = setInterval(displayNext, 5000);
+        });
     }
 }
 // //change to next element
@@ -117,3 +131,4 @@ prevBtn.onclick = () => {
     autoScroll = setInterval(displayNext, 5000);
 };
 updateIndicator(currentIndex);
+updateImage(autoScroll);

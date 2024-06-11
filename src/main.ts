@@ -37,19 +37,41 @@ leftImage.style.left = leftImageLeft;
 rightImage.style.left = rightImageLeft;
 
 // update image Indicator
-function updateIndicator(currentIndex: number) {	
-  for(let index = 0; index < indicatorBtns.length; ++index) {
-    if (index === currentIndex) {
-      indicatorBtns[index].classList.add("active");
-    } else {
-      indicatorBtns[index].classList.remove("active");
-    }
-  }
+function updateIndicator(currentIndex: number) {
+	for (let index = 0; index < indicatorBtns.length; ++index) {
+		if (index === currentIndex) {
+			indicatorBtns[index].classList.add("active");
+		} else {
+			indicatorBtns[index].classList.remove("active");
+		}
+	}
 }
 
+function updateImage(autoScroll:any) {
+	for (let index = 0; index < indicatorBtns.length; ++index) {
+		indicatorBtns[index].addEventListener("click", () => {
+			clearInterval(autoScroll);
+			currentIndex = index;
+
+			currentImage = allImages[currentIndex] as HTMLImageElement;
+			leftImage = allImages[leftIndex(currentIndex)] as HTMLImageElement;
+			rightImage = allImages[
+				rightIndex(currentIndex)
+			] as HTMLImageElement;
+
+			currentImage.style.left = currentImageLeft;
+			leftImage.style.left = leftImageLeft;
+			rightImage.style.left = rightImageLeft;
+			
+			updateIndicator(currentIndex);
+			autoScroll = setInterval(displayNext, 5000);
+		});
+	}
+}
 
 // //change to next element
 function changeNextImage() {
+
 	//calculate current index
 	currentIndex = leftIndex(currentIndex);
 
@@ -152,5 +174,5 @@ prevBtn.onclick = () => {
 	autoScroll = setInterval(displayNext, 5000);
 };
 
-
 updateIndicator(currentIndex);
+updateImage(autoScroll);
